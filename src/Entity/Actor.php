@@ -25,7 +25,7 @@ class Actor
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'actors')]
     private $movies;
 
-    public function __construct()
+    public function _construct()
     {
         $this->movies = new ArrayCollection();
     }

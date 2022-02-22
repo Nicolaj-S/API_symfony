@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ movie.title }}
+{% endblock %}
+
+{% block body %}
+    <a href=" {{ path('show_movies') }} ">Go Back</a>
+<br>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p>{{ movie.title }}</p>
+                <img height="500px" alt="image of {{ movie.description }}" src="{{ movie.image }}">
+                <br>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="d-inline">
+                            <p>Genres in this movie:
+                                {% for genre in movie.genres %}
+                                    {{ genre.genre }},
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <p>This movies rating is: {{ movie.rating.rating }}/10</p>
+                    </div>
+                    <br>
+                    <div class="col-12">
+                        <p>Actors in this movie:</p>
+                        <div class="container">
+                            <div class="row">
+                        {% for actor in movie.actors %}
+                                <div class="col-2">
+                                    <p class="align-top">{{ actor.name }}</p>
+                                    <div>
+                                        <img height="200px" alt="{{ actor.name }}" src="{{ actor.image }}">
+                                    </div>
+                                </div>
+                        {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -31,7 +31,19 @@ class Movie
     #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
     private $actors;
 
+    #[ORM\ManyToMany(targetEntity: Genre::class, mappedBy: 'movies')]
+    private $genres;
+
+    #[ORM\ManyToOne(targetEntity: Rating::class, inversedBy: 'movies')]
+    private $rating;
+
     public function __construct()
+    {
+        $this->genres = new ArrayCollection();
+    }
+
+
+    public function _construct()
     {
         $this->actors = new ArrayCollection();
     }
@@ -113,5 +125,45 @@ class Movie
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Genre>
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenre(Genre $genres): self
+    {
+        if (!$this->genres->contains($genres)) {
+            $this->genres[] = $genres;
+            $genres->addMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(Genre $genres): self
+    {
+        if ($this->genres->removeElement($genres)) {
+            $genres->removeMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function getRating(): ?Rating
+    {
+        return $this->rating;
+    }
+
+    public function setRating(?Rating $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
 
 }

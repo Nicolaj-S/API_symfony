@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+
+{% endblock %}
+{% block item %}
+{% for movie in movies %}
+    <a href="movie/{{ movie.id }}">{{ movie.title }}</a>
+    <br>
+    <img height="500px" alt="image of {{ movie.description }}" src="{{ movie.image }}">
+{% endfor %}
+{% endblock %}
